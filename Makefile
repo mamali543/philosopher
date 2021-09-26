@@ -4,7 +4,11 @@ compile = gcc
 FLAGS = -Wall -Wextra -Werror -g
 NAME = philo
 
-SRC = philo.c
+SRC = philo.c\
+	  help_functions.c\
+	  list.c\
+	  init.c\
+	  outils.c	
 
 SRCB=
 

@@ -41,7 +41,19 @@ typedef struct g_data
 }				t_data;
 
 void			ft_putnbr_fd(int n, int fd);
-void	ft_philo(t_data *data);
-void	ft_print(char *str, t_philo *philo, unsigned int i, int w);
+t_fork			*get_fork(t_data *data, int id);
+void			print(char *str, t_philo *philo, unsigned int i, int w);
 unsigned int	get_time_mls(void);
+void			sleep_thread(unsigned int limit, t_philo *philo);
+void			check_if_philo_dead(t_philo *philo, t_data *data);
+int				check_if_philo_readytoeat(t_data *data, t_philo *philo);
+void			free_fork(t_data *data, t_philo *philo);
+void			ft_init(char **argv, t_data *data);
+t_fork			*forklist(t_data *data);
+t_philo			*philolist(t_data *data);
+void			add_back_fork(t_fork **head, t_fork *new_philo);
+void			add_back(t_philo **head, t_philo *new_philo);
+t_philo			*create_new_philo(int	i);
+t_fork			*create_new_fork(int i);
+
 #endif
