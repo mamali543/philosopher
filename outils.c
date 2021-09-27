@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 17:42:47 by mamali            #+#    #+#             */
-/*   Updated: 2021/09/26 17:43:02 by mamali           ###   ########.fr       */
+/*   Created: 2021/09/27 16:26:57 by mamali            #+#    #+#             */
+/*   Updated: 2021/09/27 16:26:59 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putchar_fd(char c, int i)
 	write(i, &c, 1);
 }
 
-void			ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	long	i;
 

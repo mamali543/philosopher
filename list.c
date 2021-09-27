@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:17:54 by mamali            #+#    #+#             */
-/*   Updated: 2021/09/26 17:42:35 by mamali           ###   ########.fr       */
+/*   Updated: 2021/09/27 16:28:47 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 t_fork	*ft_lstlastfork(t_fork *lst)
 {
-	t_fork *tmp = lst;
+	t_fork	*tmp;
+
+	tmp = lst;
 	if (!tmp)
 		return (lst);
 	while (tmp->next)
@@ -24,7 +26,9 @@ t_fork	*ft_lstlastfork(t_fork *lst)
 
 t_philo	*ft_lstlast(t_philo *lst)
 {
-	t_philo *tmp = lst;
+	t_philo	*tmp;
+
+	tmp = lst;
 	if (!tmp)
 		return (lst);
 	while (tmp->next)

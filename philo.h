@@ -1,28 +1,28 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <string.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <string.h>
+# include <sys/time.h>
 
 typedef struct s_fork
 {
 	int				philo;
 	int				new_philo;
-	pthread_mutex_t flock;
+	pthread_mutex_t	flock;
 	struct s_fork	*next;
 }				t_fork;
 
-typedef	struct	s_philo
+typedef struct s_philo
 {
-	int		id;
-	int		statu;
-	pthread_t 		trd_id;
-	int				t_eat;
-	unsigned int	t_stop_eat;
+	int				id;
+	int				statu;
+	pthread_t		thread_id;
+	int				eaten_meals;
+	unsigned int	start_t_todie;
 	int				fork;
 	int				fork1;
 	struct s_philo	*next;
@@ -34,8 +34,8 @@ typedef struct g_data
 	unsigned int	t_to_sleep;
 	unsigned int	t_to_die;
 	unsigned int	t_to_eat;
-	pthread_mutex_t lock;
-	int				t_must_eat;
+	pthread_mutex_t	lock;
+	int				required_meals;
 	t_philo			*philo;
 	t_fork			*fork;
 }				t_data;
@@ -55,5 +55,6 @@ void			add_back_fork(t_fork **head, t_fork *new_philo);
 void			add_back(t_philo **head, t_philo *new_philo);
 t_philo			*create_new_philo(int	i);
 t_fork			*create_new_fork(int i);
+void			printlist(t_philo *head);
 
 #endif

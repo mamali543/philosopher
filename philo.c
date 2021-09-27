@@ -17,13 +17,13 @@ void	print(char *s, t_philo *philo, unsigned int a, int b)
 	write(1, "\n", 1);
 	if (b == 3 || b == 2)
 		exit(15);
-	// if (s[0] != 'd')
-	pthread_mutex_unlock(&data.lock);
+	if (s[0] != 'd')
+		pthread_mutex_unlock(&data.lock);
 }
 
 t_philo	*get_philo(t_data *data, int philo_id)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = data->philo;
 	while (philo)
@@ -31,7 +31,7 @@ t_philo	*get_philo(t_data *data, int philo_id)
 		if (philo->id == philo_id)
 			return (philo);
 		philo = philo->next;
-	} 
+	}
 	return (NULL);
 }
 
@@ -43,7 +43,7 @@ void	check_philo_statu(t_philo *philo, t_data *data)
 	else if (philo->statu == 1)
 	{
 		free_fork(data, philo);
-		philo->t_eat++;
+		philo->eaten_meals++;
 		philo->statu = 2;
 	}
 	else if (philo->statu == 2)
@@ -62,7 +62,7 @@ void	*ft_routine(void *i)
 		if (philo->statu == 1)
 		{
 			print("is eating", philo, get_time_mls(), 1);
-			philo->t_stop_eat = get_time_mls();
+			philo->start_t_todie = get_time_mls();
 			sleep_thread(data.t_to_eat, philo);
 		}
 		else if (philo->statu == 2)
@@ -96,7 +96,7 @@ void	ft_philo(t_data *data)
 		}
 		else
 			philo->statu = 0;
-		if (pthread_create(&philo->trd_id, NULL, &ft_routine, &philo->id) != 0)
+		if (pthread_create(&philo->thread_id, NULL, &ft_routine, &philo->id) != 0)
 			print("can't create thread", philo, 0, 2);
 		philo = philo->next;
 	}
@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 	data.philo = philolist(&data);
 	data.fork = forklist(&data);
 	if (pthread_mutex_init(&data.lock, NULL) != 0)
-		print("\n mutex init failed\n", NULL, 0, 2);	
+		print("\n mutex init failed\n", NULL, 0, 2);
 	ft_philo(&data);
-	return 0;
+	return (0);
 }

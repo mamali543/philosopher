@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/09/27 13:24:56 by mamali           ###   ########.fr       */
+/*   Updated: 2021/09/27 17:41:57 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	free_fork(t_data *data, t_philo *philo)
 	}
 }
 
-int		check_if_philo_readytoeat(t_data *data, t_philo *philo)
+int	check_if_philo_readytoeat(t_data *data, t_philo *philo)
 {
 	t_fork	*fork;
 	t_fork	*fork1;
@@ -77,10 +77,27 @@ int		check_if_philo_readytoeat(t_data *data, t_philo *philo)
 
 void	check_if_philo_dead(t_philo *philo, t_data *data)
 {
-	if (get_time_mls() - philo->t_stop_eat >= data->t_to_die)
+	t_philo	*phi;
+
+	phi = data->philo;
+	if (get_time_mls() - philo->start_t_todie >= data->t_to_die)
 	{
 		print("died", philo, get_time_mls(), 1);
 		exit(1);
+	}
+	if (data->required_meals != -1)
+	{
+		pthread_mutex_lock(&data->lock);
+		while (phi)
+		{
+			if (phi->eaten_meals < data->required_meals)
+			{
+				pthread_mutex_unlock(&data->lock);
+				return ;
+			}
+			phi = phi->next;
+		}
+		exit(155);
 	}
 }
 
@@ -92,6 +109,4 @@ void	sleep_thread(unsigned int limit, t_philo *philo)
 	philo = NULL;
 	while (get_time_mls() - i < limit)
 		usleep(50);
-	// philo check death only if he doesn't eat
-	//check_if_philo_dead(philo, &data);
 }

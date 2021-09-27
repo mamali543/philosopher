@@ -54,6 +54,17 @@ int     main(int argc, char **argv)
 	gettimeofday(&time, NULL);
     printf("%lu\n", time.tv_sec * 1000);
 	// i = (unsigned int)time.tv_sec;
+    if (required_meals != 1)
+    {
+        pthread_mutex_lock();
+        while (philo){
+            if (philo->eaten_meals < required_meals)
+            {
+                
+            }
+            philo = philo->next;
+        }
+    }
 
     return (0);
 }
