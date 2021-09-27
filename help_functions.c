@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/09/26 16:13:42 by mamali           ###   ########.fr       */
+/*   Updated: 2021/09/27 13:24:56 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 unsigned int	get_time_mls(void)
 {
 	struct timeval	time;
-	unsigned int	i;
+	unsigned long	i;
 
 	gettimeofday(&time, NULL);
-	i = (unsigned int)time.tv_sec;
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	i = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (i);
 }
 
 void	free_fork(t_data *data, t_philo *philo)

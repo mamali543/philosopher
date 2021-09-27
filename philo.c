@@ -17,8 +17,8 @@ void	print(char *s, t_philo *philo, unsigned int a, int b)
 	write(1, "\n", 1);
 	if (b == 3 || b == 2)
 		exit(15);
-	if (s[0] != 'd')
-		pthread_mutex_unlock(&data.lock);
+	// if (s[0] != 'd')
+	pthread_mutex_unlock(&data.lock);
 }
 
 t_philo	*get_philo(t_data *data, int philo_id)
@@ -84,7 +84,7 @@ void	ft_philo(t_data *data)
 	philo = data->philo;
 	while (philo)
 	{
-		if (philo->id % 2 == 1 && data->nofphilo >= philo->id + 1)
+		if (philo->id % 2 == 1 && data->nofphilo != philo->id)
 		{
 			fork = get_fork(data, philo->id);
 			fork->new_philo = philo->id;
