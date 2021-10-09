@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:20:42 by mamali            #+#    #+#             */
-/*   Updated: 2021/09/27 17:32:55 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/09 21:25:01 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_init(char **argv, t_data *data)
 {
 	data->fork = NULL;
-	data->philo = NULL;
 	data->nofphilo = atoi(argv[1]);
 	if (data->nofphilo < 1)
 		print("invalid arguments\n", NULL, 0, 3);
@@ -48,7 +47,7 @@ t_philo	*philolist(t_data *data)
 	i = 1;
 	philo = NULL;
 	while (i <= data->nofphilo)
-		add_back(&(philo), create_new_philo(i++));
+		add_back(&(philo), create_new_philo(i++, data));
 	return (philo);
 }
 
@@ -64,19 +63,19 @@ void	printlist(t_philo *head)
 	}
 }
 
-// void	printlistf(t_fork *head)
-// {
-// 	t_fork	*tmp;
+void	printlistf(t_fork *head)
+{
+	t_fork	*tmp;
 
-// 	tmp = head;
-// 	while (tmp != NULL)
-// 	{
-// 		printf("%d\n", tmp->philo);
-// 		tmp = tmp->next;
-// 	}
-// }
+	tmp = head;
+	while (tmp != NULL)
+	{
+		printf("%d\n", tmp->philo);
+		tmp = tmp->next;
+	}
+}
 
-t_philo	*create_new_philo(int i)
+t_philo	*create_new_philo(int i , t_data *data)
 {
 	t_philo	*philo;
 
@@ -85,6 +84,9 @@ t_philo	*create_new_philo(int i)
 	philo->statu = 0;
 	philo->eaten_meals = 0;
 	philo->start_t_todie = get_time_mls();
+	philo->data = data;
+	philo->fork = 0;
+	philo->fork1 = 0;
 	philo->next = NULL;
 	return (philo);
 }

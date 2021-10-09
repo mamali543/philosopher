@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/09/27 17:41:57 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/09 21:29:55 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 unsigned int	get_time_mls(void)
 {
 	struct timeval	time;
-	unsigned long	i;
+	unsigned int	i;
 
 	gettimeofday(&time, NULL);
 	i = (time.tv_sec * 1000) + (time.tv_usec / 1000);
@@ -44,12 +44,10 @@ void	free_fork(t_data *data, t_philo *philo)
 	}
 }
 
-int	check_if_philo_readytoeat(t_data *data, t_philo *philo)
+int	check_if_philo_readytoeat(t_data *data, t_philo *philo, t_fork *fork, t_fork *fork1)
 {
-	t_fork	*fork;
-	t_fork	*fork1;
-
 	fork = get_fork(data, philo->id);
+
 	pthread_mutex_lock(&fork->flock);
 	if (fork->new_philo == -1)
 	{
@@ -79,7 +77,7 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 {
 	t_philo	*phi;
 
-	phi = data->philo;
+	phi = philo;
 	if (get_time_mls() - philo->start_t_todie >= data->t_to_die)
 	{
 		print("died", philo, get_time_mls(), 1);
@@ -87,7 +85,7 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 	}
 	if (data->required_meals != -1)
 	{
-		pthread_mutex_lock(&data->lock);
+		pthread_mutex_lock(&philo->data->lock);
 		while (phi)
 		{
 			if (phi->eaten_meals < data->required_meals)
@@ -97,7 +95,8 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 			}
 			phi = phi->next;
 		}
-		exit(155);
+		printlist(philo);
+		exit(100);
 	}
 }
 

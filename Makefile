@@ -15,7 +15,7 @@ SRCB=
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@$(compile) $(SRC)  -o $(NAME)
+	@$(compile) $(SRC)  -o $(NAME) -fsanitize=address -g
 
 bonus: fclean
 	@$(compile) $(SRCB) $(FLAGS) -o $(NAME)

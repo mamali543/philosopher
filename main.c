@@ -1,5 +1,17 @@
 #include "philo.h"
 
+void	free_node(t_philo **node)
+{
+	t_philo	*tmp;
+
+	while (*node)
+	{
+		tmp = *node;
+		*node = (*node)->next;
+		free(tmp);
+	}
+}
+
 void*   routine() {
     printf("test from threads\n");
     sleep(2);
