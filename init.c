@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:20:42 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/09 21:25:01 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/10/11 18:08:01 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 void	ft_init(char **argv, t_data *data)
 {
 	data->fork = NULL;
-	data->nofphilo = atoi(argv[1]);
+	data->nofphilo = ft_atoi(argv[1]);
 	if (data->nofphilo < 1)
 		print("invalid arguments\n", NULL, 0, 3);
-	data->t_to_die = atoi(argv[2]);
-	data->t_to_eat = atoi(argv[3]);
-	data->t_to_sleep = atoi(argv[4]);
+	data->t_to_die = ft_atoi(argv[2]);
+	data->t_to_eat = ft_atoi(argv[3]);
+	data->t_to_sleep = ft_atoi(argv[4]);
+	data->o = 1;
 	if (argv[5])
-		data->required_meals = atoi(argv[5]);
+		data->required_meals = ft_atoi(argv[5]);
 	else
 		data->required_meals = -1;
 }
@@ -51,31 +52,7 @@ t_philo	*philolist(t_data *data)
 	return (philo);
 }
 
-void	printlist(t_philo *head)
-{
-	t_philo	*tmp;
-
-	tmp = head;
-	while (tmp != NULL)
-	{
-		printf("%d\n", tmp->eaten_meals);
-		tmp = tmp->next;
-	}
-}
-
-void	printlistf(t_fork *head)
-{
-	t_fork	*tmp;
-
-	tmp = head;
-	while (tmp != NULL)
-	{
-		printf("%d\n", tmp->philo);
-		tmp = tmp->next;
-	}
-}
-
-t_philo	*create_new_philo(int i , t_data *data)
+t_philo	*create_new_philo(int i, t_data *data)
 {
 	t_philo	*philo;
 

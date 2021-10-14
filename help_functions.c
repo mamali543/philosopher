@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/09 21:29:55 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/10/11 16:14:55 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ void	free_fork(t_data *data, t_philo *philo)
 	}
 }
 
-int	check_if_philo_readytoeat(t_data *data, t_philo *philo, t_fork *fork, t_fork *fork1)
+int	is_ready(t_data *data, t_philo *philo, t_fork *fork, t_fork *fork1)
 {
 	fork = get_fork(data, philo->id);
-
 	pthread_mutex_lock(&fork->flock);
 	if (fork->new_philo == -1)
 	{
@@ -81,7 +80,8 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 	if (get_time_mls() - philo->start_t_todie >= data->t_to_die)
 	{
 		print("died", philo, get_time_mls(), 1);
-		exit(1);
+		pthread_mutex_unlock(&philo->data->help);
+		philo->data->o = 0;
 	}
 	if (data->required_meals != -1)
 	{
@@ -95,8 +95,8 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 			}
 			phi = phi->next;
 		}
-		printlist(philo);
-		exit(100);
+		pthread_mutex_unlock(&philo->data->help);
+		philo->data->o = 0;
 	}
 }
 

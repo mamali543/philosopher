@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 20:55:50 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/10/09 21:28:11 by macbookpro       ###   ########.fr       */
+/*   Created: 2021/10/11 15:49:00 by mamali            #+#    #+#             */
+/*   Updated: 2021/10/11 18:23:41 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,12 @@ void	print(char *s, t_philo *philo, unsigned int a, int b)
 	write(1, s, strlen(s));
 	write(1, "\n", 1);
 	if (b == 3 || b == 2)
-		exit(15);
+	{
+		pthread_mutex_unlock(&philo->data->help);
+		philo->data->o = 0;
+	}		
 	if (s[0] != 'd')
 		pthread_mutex_unlock(&philo->data->lock);
-}
-
-t_philo	*get_philo(t_philo *philos, int philo_id)
-{
-	t_philo	*philo;
-
-	philo = philos;
-	while (philo)
-	{
-		if (philo->id == philo_id)
-			return (philo);
-		philo = philo->next;
-	}
-	return (NULL);
 }
 
 void	check_philo_statu(t_philo *philo, t_data *data)
@@ -52,7 +41,7 @@ void	check_philo_statu(t_philo *philo, t_data *data)
 
 	check_if_philo_dead(philo, data);
 	if (philo->statu == 0 || philo->statu == 3)
-		philo->statu = check_if_philo_readytoeat(data, philo, fork, fork1);
+		philo->statu = is_ready(data, philo, fork, fork1);
 	else if (philo->statu == 1)
 	{
 		free_fork(data, philo);
@@ -70,7 +59,7 @@ void	*ft_routine(void *i)
 
 	philo = (t_philo *)i;
 	id = philo->id;
-	while (1)
+	while (philo->data->o)
 	{
 		if (philo->statu == 1)
 		{
@@ -87,6 +76,7 @@ void	*ft_routine(void *i)
 			print("is thinking", philo, get_time_mls(), 1);
 		check_philo_statu(philo, philo->data);
 	}
+	return (NULL);
 }
 
 void	ft_philo(t_philo *philos)
@@ -113,7 +103,6 @@ void	ft_philo(t_philo *philos)
 			print("can't create thread", philo, 0, 2);
 		philo = philo->next;
 	}
-	while (1);
 }
 
 int	main(int argc, char **argv)
@@ -122,15 +111,23 @@ int	main(int argc, char **argv)
 	t_data		*data;
 	t_fork		*fork;
 
-	if (argc != 5 && argc != 6)
+	if (handle_error(argc, argv) == 0)
+	{
+		log_error("Invalid Args\n");
 		return (-1);
-	philo = malloc(sizeof(t_philo));
+	}
+	philo = NULL;
 	data = malloc(sizeof(t_data));
 	ft_init(argv, data);
 	data->fork = forklist(data);
+	if (pthread_mutex_init(&data->help, NULL) != 0)
+		print("\n mutex init failed\n", NULL, 0, 2);
+	pthread_mutex_lock(&data->help);
 	philo = philolist(data);
 	if (pthread_mutex_init(&philo->data->lock, NULL) != 0)
 		print("\n mutex init failed\n", NULL, 0, 2);
 	ft_philo(philo);
+	pthread_mutex_lock(&philo->data->help);
+	free_function(&fork, data, &philo);
 	return (0);
 }

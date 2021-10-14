@@ -1,26 +1,28 @@
 
 MakeDir = make
 compile = gcc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 NAME = philo
 
 SRC = philo.c\
 	  help_functions.c\
 	  list.c\
 	  init.c\
-	  outils.c	
+	  outils.c\
+	  tools.c\
+	  file.c
 
-SRCB=
+OBJS = ${SRC:.c=.o}
 
 all: $(NAME)
 
-$(NAME): $(SRC)
-	@$(compile) $(SRC)  -o $(NAME) -fsanitize=address -g
+$(NAME): $(OBJS)
+	@$(compile) $(FLAGS) $(OBJS)  -o $(NAME)
 
-bonus: fclean
-	@$(compile) $(SRCB) $(FLAGS) -o $(NAME)
+clean:
+	@rm -rf $(OBJS)
 
-fclean:
+fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all

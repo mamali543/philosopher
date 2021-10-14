@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 16:00:51 by mamali            #+#    #+#             */
+/*   Updated: 2021/10/11 18:25:07 by mamali           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -16,7 +28,6 @@ typedef struct s_fork
 	struct s_fork	*next;
 }				t_fork;
 
-
 typedef struct s_data
 {
 	int				nofphilo;
@@ -26,6 +37,8 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 	int				required_meals;
 	t_fork			*fork;
+	pthread_mutex_t	help;
+	int				o;
 }				t_data;
 
 typedef struct s_philo
@@ -47,7 +60,8 @@ void			print(char *str, t_philo *philo, unsigned int i, int w);
 unsigned int	get_time_mls(void);
 void			sleep_thread(unsigned int limit, t_philo *philo);
 void			check_if_philo_dead(t_philo *philo, t_data *data);
-int				check_if_philo_readytoeat(t_data *data, t_philo *philo, t_fork *fork, t_fork *fork1);
+int				is_ready(t_data *data, t_philo *philo, t_fork *fork, \
+				 t_fork *fork1);
 void			free_fork(t_data *data, t_philo *philo);
 void			ft_init(char **argv, t_data *data);
 t_fork			*forklist(t_data *data);
@@ -57,5 +71,13 @@ void			add_back(t_philo **head, t_philo *new_philo);
 t_philo			*create_new_philo(int	i, t_data *data);
 t_fork			*create_new_fork(int i);
 void			printlist(t_philo *head);
-void	printlistf(t_fork *head);
+void			printlistf(t_fork *head);
+void			free_philo(t_philo **node);
+void			free_f(t_fork **node);
+void			free_function(t_fork **fork, t_data *data, t_philo **philo);
+int				handle_error(int ac, char **argv);
+long long		ft_atoi(const char *str);
+int				ft_isdigit(int c);
+void			log_error(char *msg);
+
 #endif
