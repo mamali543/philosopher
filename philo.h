@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:00:51 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/16 19:52:58 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 21:25:55 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 	int				required_meals;
 	t_fork			*fork;
+	unsigned long	start;
 	pthread_mutex_t	help;
 	int				o;
 }				t_data;

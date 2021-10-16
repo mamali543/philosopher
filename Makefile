@@ -17,7 +17,7 @@ OBJS = ${SRC:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(compile) $(FLAGS) $(OBJS)  -o $(NAME)
+	@$(compile) $(FLAGS) $(OBJS)  -o $(NAME) -fsanitize=address -g
 
 clean:
 	@rm -rf $(OBJS)

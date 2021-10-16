@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:49:00 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/16 19:46:55 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 21:25:52 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print(char *s, t_philo *philo, unsigned long a, int b)
 		pthread_mutex_lock(&philo->data->lock);
 	if (b != 2 && b != 3)
 	{
-		printf("%lu", a);
+		printf("%lu", a - philo->data->start);
 		printf(" ");
 		printf("%d", (unsigned int)philo->id);
 		printf(" ");
@@ -124,6 +124,7 @@ int	main(int argc, char **argv)
 	if (pthread_mutex_init(&data->help, NULL) != 0)
 		print("\n mutex init failed\n", NULL, 0, 2);
 	pthread_mutex_lock(&data->help);
+	data->start= get_time_mls();
 	philo = philolist(data);
 	if (pthread_mutex_init(&philo->data->lock, NULL) != 0)
 		print("\n mutex init failed\n", NULL, 0, 2);
