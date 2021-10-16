@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/16 21:40:31 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 23:53:44 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	sleep_thread(unsigned int limit, t_philo *philo)
 	while (get_time_mls() - i < limit)
 	{
 		usleep(10);
-		check_if_philo_dead(philo, philo->data);
+		if (philo->statu == 2)
+			check_if_philo_dead(philo, philo->data);
 	}
 }
