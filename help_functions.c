@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/16 18:50:42 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 19:52:12 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 			}
 			phi = phi->next;
 		}
-		printlist(philo);
 		pthread_mutex_unlock(&philo->data->help);
 		philo->data->o = 0;
 	}

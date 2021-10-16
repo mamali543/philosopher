@@ -6,36 +6,20 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:26:57 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/11 16:47:32 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 19:52:27 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putchar_fd(char c, int i)
+int	handle_args(char **argv)
 {
-	write(i, &c, 1);
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	long	i;
-
-	i = n;
-	if (i < 0)
-	{
-		i = -i;
-		ft_putchar_fd(45, fd);
-	}
-	if (i > 9)
-	{
-		ft_putnbr_fd(i / 10, fd);
-		ft_putchar_fd(i % 10 + 48, fd);
-	}
-	if (i <= 9 && i >= 0)
-	{
-		ft_putchar_fd(i + 48, fd);
-	}
+	if (ft_atoi(argv[1]) == 0)
+		return (0);
+	if (argv[5])
+		if (ft_atoi(argv[5]) == 0)
+			return (0);
+	return (1);
 }
 
 t_philo	*get_philo(t_philo *philos, int philo_id)
