@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:49:00 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/16 18:56:58 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 19:13:13 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int	main(int argc, char **argv)
 	t_data		*data;
 	t_fork		*fork;
 
+	if (ft_atoi(argv[1]) == 0)
+		return (0);
 	if (handle_error(argc, argv) == 0)
 	{
 		log_error("Invalid Args\n");
