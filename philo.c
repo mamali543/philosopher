@@ -6,25 +6,24 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:49:00 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/11 18:23:41 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 18:56:58 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print(char *s, t_philo *philo, unsigned int a, int b)
+void	print(char *s, t_philo *philo, unsigned long a, int b)
 {
 	if (b != 3)
 		pthread_mutex_lock(&philo->data->lock);
 	if (b != 2 && b != 3)
 	{
-		ft_putnbr_fd(a, 1);
-		write(1, " ", 1);
-		ft_putnbr_fd((unsigned int)philo->id, 1);
-		write(1, " ", 1);
+		printf("%lu", a);
+		printf(" ");
+		printf("%d", (unsigned int)philo->id);
+		printf(" ");
 	}
-	write(1, s, strlen(s));
-	write(1, "\n", 1);
+	printf("%s\n", s);
 	if (b == 3 || b == 2)
 	{
 		pthread_mutex_unlock(&philo->data->help);

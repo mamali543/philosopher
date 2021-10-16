@@ -6,7 +6,7 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:00:51 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/11 18:25:07 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 18:38:33 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_philo
 	int				statu;
 	pthread_t		thread_id;
 	int				eaten_meals;
-	unsigned int	start_t_todie;
+	unsigned long	start_t_todie;
 	int				fork;
 	int				fork1;
 	t_data			*data;
@@ -56,8 +56,8 @@ typedef struct s_philo
 
 void			ft_putnbr_fd(int n, int fd);
 t_fork			*get_fork(t_data *data, int id);
-void			print(char *str, t_philo *philo, unsigned int i, int w);
-unsigned int	get_time_mls(void);
+void			print(char *str, t_philo *philo, unsigned long i, int w);
+unsigned long	get_time_mls(void);
 void			sleep_thread(unsigned int limit, t_philo *philo);
 void			check_if_philo_dead(t_philo *philo, t_data *data);
 int				is_ready(t_data *data, t_philo *philo, t_fork *fork, \

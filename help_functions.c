@@ -6,16 +6,16 @@
 /*   By: mamali <mamali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:12:35 by mamali            #+#    #+#             */
-/*   Updated: 2021/10/11 16:14:55 by mamali           ###   ########.fr       */
+/*   Updated: 2021/10/16 18:50:42 by mamali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned int	get_time_mls(void)
+unsigned long	get_time_mls(void)
 {
 	struct timeval	time;
-	unsigned int	i;
+	unsigned long	i;
 
 	gettimeofday(&time, NULL);
 	i = (time.tv_sec * 1000) + (time.tv_usec / 1000);
@@ -95,6 +95,7 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 			}
 			phi = phi->next;
 		}
+		printlist(philo);
 		pthread_mutex_unlock(&philo->data->help);
 		philo->data->o = 0;
 	}
@@ -102,7 +103,7 @@ void	check_if_philo_dead(t_philo *philo, t_data *data)
 
 void	sleep_thread(unsigned int limit, t_philo *philo)
 {
-	unsigned int	i;
+	unsigned long	i;
 
 	i = get_time_mls();
 	philo = NULL;
